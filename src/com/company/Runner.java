@@ -2,7 +2,7 @@
 package com.company;
 
 public class Runner extends Thread {
-    public Runner runner;
+    private Runner runner;
 
     public Runner(String name, Runner runner) {
         super(name);
@@ -14,30 +14,31 @@ public class Runner extends Thread {
     }
 
     @Override
-    public void run() {
-        if (runner != null) {
-            try {
+    public  void run() {
+        try {
+            System.out.println(this.getName() + " берет палочку");
+            if (this.getName().equals("Runner 5")){
+                System.out.println(this.getName() + " бежит к финишу");
+                System.out.println(this.getName() + " бежит к " + runner.getName());
                 sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } else {
+                System.out.println(this.getName() + " бежит к " + runner.getName());
+                sleep(1000);
+                runner.start();
+                runner.join();
             }
-            runner.start();
-        }
-        if (this.getName().equals("Runner5")) {
 
-            System.out.println(this.getName() + " Берет палочку");
-            System.out.println(this.getName() + " Бежит к финишу!");
-            System.out.println(this.getName() + " Бежит к - " + runner.getName());
+            System.out.println(this.getName() + " берет палочку");
+            if (!this.getName().equals("Runner 1")) {
+                System.out.println(this.getName() + " бежит к " + runner.getName());
+                sleep(1000);
+            } else {
+                System.out.println(this.getName() + " бежит к финишу");
+            }
 
-        } else {
-            System.out.println(this.getName() + " Берет палочку");
-            System.out.println(this.getName() + " Бежит к " + runner.getName());
+        } catch (InterruptedException e) {
+            System.out.println("Thread has been interrupted");
         }
-        if (this.getName().equals("Runner 1")) {
-            System.out.println(this.getName() + " Берет палочку");
-            System.out.println(runner.getName() + " Бежит к финишу!");
-        }
-
 
     }
 }
